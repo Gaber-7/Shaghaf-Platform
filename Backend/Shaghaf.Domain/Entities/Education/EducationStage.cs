@@ -12,4 +12,5 @@ public class EducationStage : BaseEntityInt
 
     // Navigation properties
     public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+    public ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 }
