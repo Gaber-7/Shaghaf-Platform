@@ -39,6 +39,7 @@ public class ExceptionHandlingMiddleware
             },
             NotFoundException => Problem(StatusCodes.Status404NotFound, exception.Message),
             ConflictException => Problem(StatusCodes.Status409Conflict, exception.Message),
+            ForbiddenException => Problem(StatusCodes.Status403Forbidden, exception.Message),
             Application.Common.Exceptions.AuthenticationException => Problem(StatusCodes.Status401Unauthorized, exception.Message),
             UnauthorizedAccessException => Problem(StatusCodes.Status401Unauthorized, "Authentication is required."),
             _ => Problem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
