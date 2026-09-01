@@ -1,5 +1,7 @@
 using Shaghaf.Domain.Entities.Base;
 using Shaghaf.Domain.Entities.Education;
+using Shaghaf.Domain.Entities.Learning;
+using Shaghaf.Domain.Entities.Reviews;
 using Shaghaf.Domain.Entities.Users;
 using Shaghaf.Domain.Enums;
 

@@ -23,5 +23,5 @@ public class Teacher : User
     public ICollection<TeacherReview> Reviews { get; set; } = new List<TeacherReview>();
     public ICollection<LiveClass> LiveClasses { get; set; } = new List<LiveClass>();
     public ICollection<LessonReply> Replies { get; set; } = new List<LessonReply>();
-    public TeacherEngagementScore? EngagementScore { get; set; }
+    public ICollection<TeacherEngagementScore> EngagementScores { get; set; } = new List<TeacherEngagementScore>();
 }

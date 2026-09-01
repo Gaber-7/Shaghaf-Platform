@@ -1,4 +1,5 @@
 using Shaghaf.Domain.Entities.Base;
+using Shaghaf.Domain.Entities.Courses;
 
 namespace Shaghaf.Domain.Entities.Education;
 
