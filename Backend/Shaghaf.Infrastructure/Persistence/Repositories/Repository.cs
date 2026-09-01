@@ -21,6 +21,9 @@ public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntit
     public async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default) =>
         await _set.FindAsync([id], cancellationToken);
 
+    public Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, bool asTracking = false, CancellationToken cancellationToken = default) =>
+        Query(asTracking).FirstOrDefaultAsync(predicate, cancellationToken);
+
     public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default) =>
         _set.AsNoTracking().AnyAsync(predicate, cancellationToken);
 

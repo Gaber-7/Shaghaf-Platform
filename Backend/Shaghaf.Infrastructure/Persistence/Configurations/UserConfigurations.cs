@@ -30,6 +30,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Role).HasConversion<int>();
 
         builder.HasIndex(u => u.Email).IsUnique().HasFilter("[IsDeleted] = 0");
+        builder.HasIndex(u => u.RefreshToken).HasFilter("[RefreshToken] IS NOT NULL");
         builder.HasIndex(u => u.Role);
         builder.HasIndex(u => u.IsDeleted);
     }
