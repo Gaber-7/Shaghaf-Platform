@@ -29,6 +29,13 @@ public class ConflictException : AppException
     }
 }
 
+public class ForbiddenException : AppException
+{
+    public ForbiddenException(string message = "You are not allowed to perform this action.") : base(message)
+    {
+    }
+}
+
 public class AuthenticationException : AppException
 {
     public AuthenticationException(string message) : base(message)
