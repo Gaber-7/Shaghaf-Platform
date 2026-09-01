@@ -33,9 +33,6 @@ x86/
 *.snupkg
 packages/
 
-# Entity Framework
-Migrations/
-
 # Environment variables
 .env
 .env.local

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shaghaf.Application.Common.Interfaces;
 using Shaghaf.Infrastructure.Persistence;
 using Shaghaf.Infrastructure.Persistence.Repositories;
+using Shaghaf.Infrastructure.Security;
 
 namespace Shaghaf.Infrastructure;
 
@@ -23,6 +24,14 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+
+        services.AddOptions<JwtOptions>()
+            .Bind(configuration.GetSection(JwtOptions.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        services.AddSingleton<ITokenService, JwtTokenService>();
 
         return services;
     }
