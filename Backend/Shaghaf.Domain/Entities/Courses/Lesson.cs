@@ -1,4 +1,7 @@
 using Shaghaf.Domain.Entities.Base;
+using Shaghaf.Domain.Entities.Interaction;
+using Shaghaf.Domain.Entities.Learning;
+using Shaghaf.Domain.Entities.Media;
 using Shaghaf.Domain.Enums;
 
 namespace Shaghaf.Domain.Entities.Courses;
