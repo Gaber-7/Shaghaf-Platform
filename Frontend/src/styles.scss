@@ -1,0 +1,26 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --primary: #5B4AEF;
+  --secondary: #06B6D4;
+  --background: #F8FAFC;
+  --text: #15152A;
+  font-family: 'Inter', 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html, body, app-root {
+  height: 100%;
+  background: var(--background);
+  color: var(--text);
+}
+
+/* Basic utility classes for layout */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  padding: 1.5rem;
+}
