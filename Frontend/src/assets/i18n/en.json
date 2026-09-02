@@ -1,0 +1,10 @@
+{
+  "APP": {
+    "TITLE": "Shaghaf Platform",
+    "WELCOME": "Welcome"
+  },
+  "TOPBAR": {
+    "LANG": "Language",
+    "NOTIFICATIONS": "Notifications"
+  }
+}

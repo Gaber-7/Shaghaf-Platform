@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">{{ 'APP.TITLE' | translate }}</a>
+    <div class="ms-auto d-flex align-items-center">
+      <select class="form-select form-select-sm me-2" (change)="switchLang($event.target.value)">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+      </select>
+      <button class="btn btn-outline-secondary btn-sm">{{ 'TOPBAR.NOTIFICATIONS' | translate }}</button>
+    </div>
+  </div>
+</nav>
