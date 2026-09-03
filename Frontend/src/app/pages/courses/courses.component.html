@@ -1,0 +1,70 @@
+<div class="courses-header">
+  <div class="header-content">
+    <h1>Explore Courses</h1>
+    <p>Discover and enroll in courses to enhance your skills</p>
+  </div>
+</div>
+
+<div class="courses-container">
+  <div class="sidebar-filters">
+    <div class="filter-group">
+      <h3>Search</h3>
+      <input type="text" class="search-input" [(ngModel)]="searchQuery" placeholder="Search courses...">
+    </div>
+
+    <div class="filter-group">
+      <h3>Category</h3>
+      <div class="filter-options">
+        <label *ngFor="let cat of categories" class="filter-option">
+          <input type="radio" [(ngModel)]="selectedCategory" [value]="cat.value" name="category">
+          <span>{{ cat.label }}</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h3>Level</h3>
+      <div class="filter-options">
+        <label *ngFor="let level of levels" class="filter-option">
+          <input type="radio" [(ngModel)]="selectedLevel" [value]="level.value" name="level">
+          <span>{{ level.label }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="courses-main">
+    <div class="results-header">
+      <span class="results-count">{{ filteredCourses.length }} courses found</span>
+    </div>
+
+    <div class="courses-grid">
+      <div class="course-card" *ngFor="let course of filteredCourses">
+        <div class="course-image">
+          <span class="emoji">{{ course.image }}</span>
+        </div>
+
+        <div class="course-body">
+          <h3>{{ course.name }}</h3>
+          <p class="instructor">{{ course.instructor }}</p>
+
+          <div class="course-meta">
+            <span class="students">{{ course.students }} students</span>
+            <span class="rating">⭐ {{ course.rating }}</span>
+          </div>
+
+          <p class="description">{{ course.description }}</p>
+
+          <div class="course-footer">
+            <span class="price">{{ course.price }}</span>
+            <button class="btn btn-green btn-sm">Enroll Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="filteredCourses.length === 0" class="no-results">
+      <p>No courses found matching your filters</p>
+    </div>
+  </div>
+</div>
