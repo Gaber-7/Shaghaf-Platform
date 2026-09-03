@@ -1,0 +1,102 @@
+<div class="dashboard-header">
+  <div class="header-content">
+    <div class="welcome-section">
+      <h1>Welcome back, {{ studentName }}! 👋</h1>
+      <p>College Student</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-card">
+        <span class="stat-label">Total Courses</span>
+        <span class="stat-value">{{ courseCount }}</span>
+        <span class="stat-subtext">+2 this month</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Assignments</span>
+        <span class="stat-value">{{ assignmentCount }}</span>
+        <span class="stat-subtext">Pending</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Hours Spent</span>
+        <span class="stat-value">{{ studyHours }}h</span>
+        <span class="stat-subtext">+6 this week</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Certificates</span>
+        <span class="stat-value">{{ certificateCount }}</span>
+        <span class="stat-subtext">Earned</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-main">
+  <div class="dashboard-section continue-learning">
+    <h2>Continue Learning</h2>
+    <div class="course-card featured">
+      <div class="course-progress">
+        <div class="progress-circle">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="progress-bg"></circle>
+            <circle cx="50" cy="50" r="45" class="progress-fill" 
+              [style.--progress-value]="progressPercentage + '%'"></circle>
+          </svg>
+          <span class="progress-text">{{ progressPercentage }}%</span>
+        </div>
+        <div class="course-info">
+          <h3>Algebra Fundamentals</h3>
+          <p>Continue from where you left off</p>
+          <button class="btn btn-green btn-sm">Continue Lesson</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-row">
+    <div class="dashboard-section progress-overview">
+      <h2>Progress Overview</h2>
+      <div class="chart-placeholder">
+        <!-- Chart will go here -->
+        <div style="padding: 2rem; text-align: center; color: var(--text-light);">
+          📊 Progress Chart
+        </div>
+      </div>
+      <div class="performance-filter">
+        <button class="filter-btn active">This Week</button>
+        <button class="filter-btn">This Month</button>
+      </div>
+    </div>
+
+    <div class="dashboard-section performance">
+      <h2>Performance</h2>
+      <div class="performance-metric">
+        <span class="metric-label">Overall Score</span>
+        <span class="metric-value">85%</span>
+        <span class="metric-status">Good job!</span>
+      </div>
+      <div class="performance-metric">
+        <span class="metric-label">Completion Rate</span>
+        <span class="metric-value">92%</span>
+        <span class="metric-status">On track</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-section courses-list">
+    <h2>My Courses</h2>
+    <div class="courses-grid">
+      <div class="course-item" *ngFor="let course of courses">
+        <div class="course-header">
+          <h3>{{ course.name }}</h3>
+          <span class="lesson-count">{{ course.lessons }} lessons</span>
+        </div>
+        <div class="course-progress-bar">
+          <div class="progress-bar" [style.width.%]="course.progress"></div>
+        </div>
+        <div class="course-footer">
+          <span>{{ course.progress }}% complete</span>
+          <a href="#" class="continue-link">Continue →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

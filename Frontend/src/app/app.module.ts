@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BidiModule } from '@angular/cdk/bidi';
 import { TopbarComponent } from './shared/topbar/topbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { LearningComponent } from './pages/learning/learning.component';
@@ -23,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     TopbarComponent,
     SidebarComponent,
+    LoginComponent,
     DashboardComponent,
     CoursesComponent,
     LearningComponent,
@@ -32,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     BidiModule,
     TranslateModule.forRoot({
       loader: {

@@ -1,0 +1,116 @@
+<div class="analytics-header">
+  <div class="header-content">
+    <h1>Your Analytics</h1>
+    <p>Track your learning progress and performance</p>
+  </div>
+</div>
+
+<div class="analytics-container">
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <div class="stat-icon">{{ stat.icon }}</div>
+      <div class="stat-content">
+        <span class="stat-label">{{ stat.label }}</span>
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-trend">{{ stat.trend }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="analytics-row">
+    <div class="chart-section performance-section">
+      <h2>Course Performance</h2>
+      <div class="performance-list">
+        <div class="performance-item" *ngFor="let item of performanceData">
+          <div class="performance-header">
+            <span class="course-name">{{ item.course }}</span>
+            <span class="performance-score" [style.color]="getStatusColor(item.status)">
+              {{ item.score }}%
+            </span>
+          </div>
+          <div class="performance-bar">
+            <div class="progress-fill" [style.width.%]="item.score"></div>
+          </div>
+          <span class="performance-status">{{ item.status }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-section time-section">
+      <h2>Learning Time This Week</h2>
+      <div class="chart-placeholder">
+        <div class="bar-chart">
+          <div class="bar-item" *ngFor="let item of timeData">
+            <div class="bar-label">{{ item.day }}</div>
+            <div class="bar" [style.height.%]="(item.hours / 5) * 100"></div>
+            <div class="bar-value">{{ item.hours }}h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-section">
+    <h2>Skills Progress</h2>
+    <div class="skills-grid">
+      <div class="skill-card" *ngFor="let skill of skillsData">
+        <div class="skill-header">
+          <span class="skill-name">{{ skill.skill }}</span>
+          <span class="skill-percentage">{{ skill.level }}%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" [style.width.%]="skill.level"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="achievements-section">
+    <h2>Achievements</h2>
+    <div class="achievements-grid">
+      <div class="achievement-card">
+        <div class="achievement-icon">🏅</div>
+        <div class="achievement-info">
+          <h3>Week Warrior</h3>
+          <p>Learn 5+ hours in a week</p>
+          <span class="achievement-status completed">Unlocked</span>
+        </div>
+      </div>
+
+      <div class="achievement-card">
+        <div class="achievement-icon">🚀</div>
+        <div class="achievement-info">
+          <h3>Fast Learner</h3>
+          <p>Complete 3 courses in a month</p>
+          <span class="achievement-status locked">Locked</span>
+        </div>
+      </div>
+
+      <div class="achievement-card">
+        <div class="achievement-icon">⭐</div>
+        <div class="achievement-info">
+          <h3>Perfect Score</h3>
+          <p>Score 95%+ in any course</p>
+          <span class="achievement-status locked">Locked</span>
+        </div>
+      </div>
+
+      <div class="achievement-card">
+        <div class="achievement-icon">🔥</div>
+        <div class="achievement-info">
+          <h3>On Fire</h3>
+          <p>Maintain 30-day learning streak</p>
+          <span class="achievement-status in-progress">12/30 Days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="export-section">
+    <h2>Export Report</h2>
+    <div class="export-buttons">
+      <button class="btn btn-green">Download PDF</button>
+      <button class="btn btn-outline">Share Progress</button>
+    </div>
+  </div>
+</div>

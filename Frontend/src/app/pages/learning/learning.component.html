@@ -1,0 +1,87 @@
+<div class="learning-container">
+  <div class="learning-main">
+    <div class="video-player">
+      <div class="video-placeholder">
+        <div class="play-button">▶</div>
+        <p>Video: {{ currentLesson.title }}</p>
+      </div>
+    </div>
+
+    <div class="lesson-info">
+      <div class="lesson-header">
+        <div class="lesson-meta">
+          <h1>{{ currentLesson.title }}</h1>
+          <p class="course-name">{{ currentLesson.course }}</p>
+          <span class="instructor">by {{ currentLesson.instructor }}</span>
+        </div>
+        <div class="progress-section">
+          <span class="progress-label">Course Progress</span>
+          <div class="progress-bar-container">
+            <div class="progress-bar" [style.width.%]="currentLesson.progress"></div>
+          </div>
+          <span class="progress-text">{{ currentLesson.progress }}% Complete</span>
+        </div>
+      </div>
+
+      <div class="lesson-actions">
+        <button class="btn btn-green">Mark as Complete</button>
+        <button class="btn btn-outline">Download Resources</button>
+        <button class="btn btn-outline">Report Issue</button>
+      </div>
+    </div>
+
+    <div class="lesson-tabs">
+      <div class="tab-content">
+        <h2>Lesson Description</h2>
+        <p>This lesson covers the fundamentals of HTML, including basic tags, structure, and best practices. You'll learn how to create well-formed HTML documents that form the foundation of web pages.</p>
+        <p>Key topics covered:</p>
+        <ul>
+          <li>HTML document structure</li>
+          <li>Common tags and attributes</li>
+          <li>Semantic HTML elements</li>
+          <li>Best practices for accessibility</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notes-section">
+      <h2>Your Notes</h2>
+      <div class="add-note">
+        <textarea [(ngModel)]="newNote" placeholder="Add a note..." class="note-input"></textarea>
+        <button (click)="addNote()" class="btn btn-green btn-sm">Add Note</button>
+      </div>
+      <div class="notes-list">
+        <div class="note-item" *ngFor="let note of notes">
+          <span class="note-timestamp">{{ note.timestamp }}</span>
+          <p class="note-content">{{ note.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="learning-sidebar" [class.hidden]="!isLessonListOpen">
+    <div class="sidebar-header">
+      <h3>Lessons</h3>
+      <button class="toggle-btn" (click)="toggleLessonList()">✕</button>
+    </div>
+
+    <div class="lessons-list">
+      <div class="lesson-item" *ngFor="let lesson of lessons" 
+        [class.active]="lesson.id === currentLesson.id"
+        [class.watched]="lesson.watched"
+        (click)="selectLesson(lesson)">
+        <div class="lesson-status">
+          <span class="status-icon">{{ lesson.watched ? '✓' : '◯' }}</span>
+        </div>
+        <div class="lesson-details">
+          <span class="lesson-title">{{ lesson.title }}</span>
+          <span class="lesson-duration">{{ lesson.duration }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="toggle-sidebar-btn" *ngIf="!isLessonListOpen" (click)="toggleLessonList()">
+    ☰ Lessons
+  </button>
+</div>
