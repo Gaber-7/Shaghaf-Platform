@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '@app/core/services/api.service';
+import { CourseListItemDto, CourseQuery, PagedResult } from '@app/shared/models';
 
 @Component({
   selector: 'app-courses',
@@ -9,81 +11,11 @@ export class CoursesComponent implements OnInit {
   searchQuery = '';
   selectedCategory = 'all';
   selectedLevel = 'all';
+  isLoading = true;
+  errorMessage = '';
 
-  courses = [
-    {
-      id: 1,
-      name: 'Web Development Fundamentals',
-      instructor: 'Sarah Johnson',
-      category: 'web',
-      level: 'beginner',
-      students: 1250,
-      rating: 4.8,
-      image: '📚',
-      description: 'Learn HTML, CSS, and JavaScript basics',
-      price: 'Free'
-    },
-    {
-      id: 2,
-      name: 'React Advanced Patterns',
-      instructor: 'John Smith',
-      category: 'web',
-      level: 'advanced',
-      students: 890,
-      rating: 4.9,
-      image: '⚛️',
-      description: 'Master advanced React concepts and patterns',
-      price: '$49'
-    },
-    {
-      id: 3,
-      name: 'Python for Data Science',
-      instructor: 'Emma Davis',
-      category: 'data',
-      level: 'intermediate',
-      students: 2150,
-      rating: 4.7,
-      image: '🐍',
-      description: 'Learn Python with Pandas, NumPy, and Matplotlib',
-      price: '$39'
-    },
-    {
-      id: 4,
-      name: 'UI/UX Design Essentials',
-      instructor: 'Michael Chen',
-      category: 'design',
-      level: 'beginner',
-      students: 1500,
-      rating: 4.6,
-      image: '🎨',
-      description: 'Create beautiful and functional user interfaces',
-      price: 'Free'
-    },
-    {
-      id: 5,
-      name: 'Machine Learning Basics',
-      instructor: 'Dr. Aisha Patel',
-      category: 'data',
-      level: 'advanced',
-      students: 680,
-      rating: 4.9,
-      image: '🤖',
-      description: 'Introduction to ML algorithms and implementation',
-      price: '$79'
-    },
-    {
-      id: 6,
-      name: 'Mobile App Development',
-      instructor: 'James Wilson',
-      category: 'mobile',
-      level: 'intermediate',
-      students: 950,
-      rating: 4.5,
-      image: '📱',
-      description: 'Build iOS and Android apps with React Native',
-      price: '$59'
-    }
-  ];
+  courses: CourseListItemDto[] = [];
+  filteredCoursesList: CourseListItemDto[] = [];
 
   categories = [
     { value: 'all', label: 'All Courses' },
@@ -100,19 +32,57 @@ export class CoursesComponent implements OnInit {
     { value: 'advanced', label: 'Advanced' }
   ];
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.loadCourses();
   }
 
-  get filteredCourses() {
-    return this.courses.filter(course => {
-      const matchesSearch = course.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                           course.instructor.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const matchesCategory = this.selectedCategory === 'all' || course.category === this.selectedCategory;
-      const matchesLevel = this.selectedLevel === 'all' || course.level === this.selectedLevel;
-      return matchesSearch && matchesCategory && matchesLevel;
+  private loadCourses(): void {
+    const query: CourseQuery = {
+      page: 1,
+      pageSize: 20,
+      sortBy: 'createdAt',
+      sortOrder: 'desc'
+    };
+
+    this.apiService.searchCourses(query).subscribe({
+      next: (result: PagedResult<CourseListItemDto>) => {
+        this.courses = result.items;
+        this.updateFilteredCourses();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        this.errorMessage = 'Failed to load courses';
+        this.isLoading = false;
+      }
     });
+  }
+
+  private updateFilteredCourses(): void {
+    this.filteredCoursesList = this.courses.filter(course => {
+      const matchesSearch = course.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                           course.instructorName.toLowerCase().includes(this.searchQuery.toLowerCase());
+      // Add more filtering logic based on category and level if needed
+      return matchesSearch;
+    });
+  }
+
+  onSearchChange(): void {
+    this.updateFilteredCourses();
+  }
+
+  onCategoryChange(): void {
+    this.updateFilteredCourses();
+  }
+
+  onLevelChange(): void {
+    this.updateFilteredCourses();
+  }
+
+  get filteredCourses(): CourseListItemDto[] {
+    return this.filteredCoursesList;
   }
 }
 

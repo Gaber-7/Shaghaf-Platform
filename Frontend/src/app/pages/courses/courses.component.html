@@ -9,14 +9,14 @@
   <div class="sidebar-filters">
     <div class="filter-group">
       <h3>Search</h3>
-      <input type="text" class="search-input" [(ngModel)]="searchQuery" placeholder="Search courses...">
+      <input type="text" class="search-input" [(ngModel)]="searchQuery" (change)="onSearchChange()" placeholder="Search courses...">
     </div>
 
     <div class="filter-group">
       <h3>Category</h3>
       <div class="filter-options">
         <label *ngFor="let cat of categories" class="filter-option">
-          <input type="radio" [(ngModel)]="selectedCategory" [value]="cat.value" name="category">
+          <input type="radio" [(ngModel)]="selectedCategory" [value]="cat.value" name="category" (change)="onCategoryChange()">
           <span>{{ cat.label }}</span>
         </label>
       </div>
@@ -26,7 +26,7 @@
       <h3>Level</h3>
       <div class="filter-options">
         <label *ngFor="let level of levels" class="filter-option">
-          <input type="radio" [(ngModel)]="selectedLevel" [value]="level.value" name="level">
+          <input type="radio" [(ngModel)]="selectedLevel" [value]="level.value" name="level" (change)="onLevelChange()">
           <span>{{ level.label }}</span>
         </label>
       </div>
@@ -34,37 +34,49 @@
   </div>
 
   <div class="courses-main">
-    <div class="results-header">
-      <span class="results-count">{{ filteredCourses.length }} courses found</span>
+    <div *ngIf="isLoading" class="loading-state">
+      <p>Loading courses...</p>
     </div>
 
-    <div class="courses-grid">
-      <div class="course-card" *ngFor="let course of filteredCourses">
-        <div class="course-image">
-          <span class="emoji">{{ course.image }}</span>
-        </div>
+    <div *ngIf="errorMessage && !isLoading" class="error-state">
+      <p>{{ errorMessage }}</p>
+    </div>
 
-        <div class="course-body">
-          <h3>{{ course.name }}</h3>
-          <p class="instructor">{{ course.instructor }}</p>
+    <div *ngIf="!isLoading && !errorMessage">
+      <div class="results-header">
+        <span class="results-count">{{ filteredCourses.length }} courses found</span>
+      </div>
 
-          <div class="course-meta">
-            <span class="students">{{ course.students }} students</span>
-            <span class="rating">⭐ {{ course.rating }}</span>
+      <div class="courses-grid">
+        <div class="course-card" *ngFor="let course of filteredCourses">
+          <div class="course-image">
+            <img *ngIf="course.thumbnailUrl" [src]="course.thumbnailUrl" [alt]="course.title">
+            <span *ngIf="!course.thumbnailUrl" class="emoji">📚</span>
           </div>
 
-          <p class="description">{{ course.description }}</p>
+          <div class="course-body">
+            <h3>{{ course.title }}</h3>
+            <p class="instructor">{{ course.instructorName }}</p>
 
-          <div class="course-footer">
-            <span class="price">{{ course.price }}</span>
-            <button class="btn btn-green btn-sm">Enroll Now</button>
+            <div class="course-meta">
+              <span class="students">{{ course.enrollmentCount }} students</span>
+              <span class="rating">⭐ {{ course.rating }}</span>
+            </div>
+
+            <p class="description">{{ course.description }}</p>
+
+            <div class="course-footer">
+              <span class="price">${{ course.price }}</span>
+              <button class="btn btn-green btn-sm">Enroll Now</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div *ngIf="filteredCourses.length === 0" class="no-results">
-      <p>No courses found matching your filters</p>
+      <div *ngIf="filteredCourses.length === 0" class="no-results">
+        <p>No courses found matching your filters</p>
+      </div>
     </div>
   </div>
 </div>
+
